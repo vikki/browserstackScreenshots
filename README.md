@@ -2,14 +2,23 @@ A thin node client for [Browserstack](http://www.browserstack.com/ "Browserstack
 
 ## To use:
 
-* Include the module. At the moment its only on github so you can do 
+* Set up your username and password for browserstack as environment variables
 
+```
+	export BROWSERSTACK_PASSWORD="IMAPASSWORD"
+	export BROWSERSTACK_USERNAME="HAPPYUSER"
+```
+
+* Install the module. At the moment its only on github so you can do:
+
+```
 	npm install --save git://github.com/vikki/browserstackScreenshots.git
-
+```
 * and then include it:
 
+```
 	var browserstackScreenshots = require('browserstackScreenshots');
-
+```
 * and then use it!
 
 

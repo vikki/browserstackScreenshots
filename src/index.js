@@ -1,7 +1,7 @@
 var request =  require('request');
 
-var username = "EMAIL",
-    password = "PASSWORD",
+var username = process.env.BROWSERSTACK_USERNAME,
+    password = process.env.BROWSERSTACK_PASSWORD,
     baseUrl  = 'http://www.browserstack.com',
     auth     =  {
                   user : username,
