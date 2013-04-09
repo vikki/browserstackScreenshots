@@ -1,0 +1,19 @@
+{
+  "name": "browserstackScreenshot",
+  "version": "0.0.1",
+  "description": "A thin node client for Browserstack's new Screenshotting service.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "echo \"just for pseudo-testing..\" && node ./test/pretendTest.js",
+    "test": "echo \"Error: no test specified...yet\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vikki/browserstackScreenshots.git"
+  },
+  "author": "Vikki",
+  "license": "MIT",
+  "dependencies": {
+    "request": "~2.16.6"
+  }
+}
