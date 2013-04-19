@@ -7,37 +7,59 @@ var sinon      = require('sinon'),
 
 // module deps
 var request = require('request');
-    
+
 chai.use(sinonChai);
 
 describe('browserstackScreenshots', function(){
 	'use strict';
 
 	var sandbox,
-        browserstackScreenshots;
+        browserstackScreenshots,
+        mockGetBrowsersResponse = {},
+        mockRequestScreenshotResponse = {},
+        authSpy = sinon.spy(),
+        formSpy = sinon.spy(),
+        getSpy = sinon.stub(request, 'get').callsArgWith(1, mockGetBrowsersResponse);
 
-	beforeEach(function() {
+
+	before(function() {
 		var requestStub;
 
-		sandbox = sinon.sandbox.create();
-
 		requestStub = {
-			get: sinon.stub(request, 'get').callsArg(1)
+			get: getSpy,
+			post: sinon.stub(request, 'post').callsArgWith(1, mockRequestScreenshotResponse),
+			form: formSpy,
+			auth: authSpy
 		};
 
 		browserstackScreenshots = proxyquire('../src/index.js', { 'request': requestStub });
+	});
 
+	beforeEach(function() {
+		sandbox = sinon.sandbox.create();
 	});
 
 	afterEach(function() {
 		sandbox.restore();
 	});
 
-	it('get browsers should request stuff from the api', function(){
+	it('getBrowsers should request browsers.json', function(){
+		browserstackScreenshots.getBrowsers();
+
+		getSpy.should.have.been.calledWith('http://www.browserstack.com/screenshots/browsers.json');
+	});
+
+	it('getBrowsers handle there being no success callback', function(){
+		browserstackScreenshots.getBrowsers();
+	});
+
+		it('getBrowsers should pass output to the callback', function(){
 		var callbackSpy = sinon.spy();
 
 		browserstackScreenshots.getBrowsers(callbackSpy);
 
-		callbackSpy.should.have.been.called;
+		callbackSpy.should.have.been.calledWith(mockGetBrowsersResponse);
+		getSpy.should.have.been.called;
 	});
+
 });

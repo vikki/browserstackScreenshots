@@ -9,19 +9,27 @@ var username = process.env.BROWSERSTACK_USERNAME,
                   sendImmediately: false
                 };
 
+function ensureVersionSet(options) {
+  options.version = options.version || "1";
+}
+
 module.exports = {
   getBrowsers : function(cb) {
     var url = baseUrl + "/screenshots/browsers.json";
 
+    if (typeof cb !== 'function'){
+       cb = function() {};
+    }
     request.get(url, cb);
   },
 
   requestScreenshot :function(options, cb) {
-    var url = baseUrl + "/screenshots/";
+    var url = baseUrl + "/screenshots/",
+        req;
 
-    options.version = options.version || "1";
+    ensureVersionSet(options);
 
-    var req = request.post(url, cb);
+    req = request.post(url, cb);
     req.auth(username, password);
     req.form().append('data', JSON.stringify(options));
   },
