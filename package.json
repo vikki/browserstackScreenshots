@@ -14,7 +14,7 @@
   "author": "Vikki",
   "license": "MIT",
   "dependencies": {
-    "request": "~2.16.6"
+    "request": "~2.75.0"
   },
   "devDependencies": {
     "sinon-chai": "~2.3.1",
